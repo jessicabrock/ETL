@@ -1,4 +1,6 @@
-# TODO: create table structure in CREATE_TABLES.py
+import pandas as pd
+import os
+
 
 postgres_extract = ('''
   SELECT column_1, column_2, column_3

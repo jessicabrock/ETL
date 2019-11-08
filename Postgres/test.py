@@ -1,5 +1,5 @@
-from etl import pg
-from main import target_cnx
+import etl
+from main import main
 
 
 def test_songplays():
@@ -7,10 +7,10 @@ def test_songplays():
         Fact table - songplays
     """
     try:
-        cur = pg.cursor()
+        cur = etl.pg.cursor()
         cur.execute('select songplay_id from songplays limit 1);')
         assert cur.rowcount == 1
-    except (Exception, pg.DatabaseError) as error:
+    except (Exception, etl.pg.DatabaseError) as error:
         print(f'{error}')
     finally:
         cur.close()
@@ -46,5 +46,5 @@ def test_time():
 
 if __name__ == "__main__":
     test_songplays()
-    if target_cnx is not None:
-        target_cnx.close()
+    if main.target_cnx is not None:
+        main.target_cnx.close()
