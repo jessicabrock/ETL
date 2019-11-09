@@ -1,5 +1,5 @@
-import etl
-from main import main
+from Postgres.etl import pg
+from Postgres.db_credentials import datawarehouse_db_config
 
 
 def test_songplays():
@@ -7,44 +7,81 @@ def test_songplays():
         Fact table - songplays
     """
     try:
-        cur = etl.pg.cursor()
+        conn = pg.connect(**datawarehouse_db_config)
+        cur = conn.cursor()
         cur.execute('select songplay_id from songplays limit 1);')
         assert cur.rowcount == 1
-    except (Exception, etl.pg.DatabaseError) as error:
+    except (Exception, pg.DatabaseError) as error:
         print(f'{error}')
     finally:
         cur.close()
+        conn.close()
 
 
 def test_users():
     """
         Dimension table - users
     """
-    pass
+    try:
+        conn = pg.connect(**datawarehouse_db_config)
+        cur = conn.cursor()
+        cur.execute('select user_id from users limit 1);')
+        assert cur.rowcount == 1
+    except (Exception, pg.DatabaseError) as error:
+        print(f'{error}')
+    finally:
+        cur.close()
+        conn.close()
 
 
 def test_songs():
     """
         Dimension table - songs
     """
-    pass
+    try:
+        conn = pg.connect(**datawarehouse_db_config)
+        cur = conn.cursor()
+        cur.execute('select song_id from songs limit 1);')
+        assert cur.rowcount == 1
+    except (Exception, pg.DatabaseError) as error:
+        print(f'{error}')
+    finally:
+        cur.close()
+        conn.close()
 
 
 def test_artists():
     """
         Dimension table - artists
     """
-    pass
+    try:
+        conn = pg.connect(**datawarehouse_db_config)
+        cur = conn.cursor()
+        cur.execute('select artist_id from artists limit 1);')
+        assert cur.rowcount == 1
+    except (Exception, pg.DatabaseError) as error:
+        print(f'{error}')
+    finally:
+        cur.close()
+        conn.close()
 
 
 def test_time():
     """
         Dimension table - time
     """
-    pass
+    try:
+        conn = pg.connect(**datawarehouse_db_config)
+        cur = conn.cursor()
+        cur.execute('select start_time from time limit 1);')
+        assert cur.rowcount == 1
+    except (Exception, pg.DatabaseError) as error:
+        print(f'{error}')
+    finally:
+        cur.close()
+        conn.close()
 
 
 if __name__ == "__main__":
     test_songplays()
-    if main.target_cnx is not None:
-        main.target_cnx.close()
+    
