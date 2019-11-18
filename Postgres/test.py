@@ -80,8 +80,3 @@ def test_time():
     finally:
         cur.close()
         conn.close()
-
-
-if __name__ == "__main__":
-    test_songplays()
-    
