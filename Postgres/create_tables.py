@@ -76,7 +76,8 @@ def all_tables():
             artist_id,
             session_id,
             location,
-            user_agent
+            user_agent,
+            PRIMARY KEY songplay_id
 
         )
         """
