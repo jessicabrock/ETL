@@ -1,8 +1,9 @@
 # variables
-from db_credentials import datawarehouse_db_config
-import sql_queries
+from Postgres.db_credentials import datawarehouse_db_config
 # methods
-from etl import etl_process, pg
+import Postgres.sql_queries
+from Postgres.etl import etl_process, pg
+from Postgres.create_tables import all_tables
 
 
 def main():
@@ -30,3 +31,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+    all_tables()
