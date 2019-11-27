@@ -68,17 +68,47 @@ def all_tables():
         # records in log data associated with song plays
         """
         CREATE TABLE IF NOT EXISTS songplays (
-            songplay_id,
-            start_time,
-            user_id,
-            level,
-            song_id,
-            artist_id,
-            session_id,
-            location,
-            user_agent,
-            PRIMARY KEY songplay_id
-
+            songplay_id SERIAL,
+            start_time TIMESTAMP,
+            user_id INTEGER,
+            level VARCHAR(10),
+            song_id VARCHAR(25),
+            artist_id VARCHAR(25),
+            session_id INTEGER,
+            location VARCHAR(35),
+            user_agent VARCHAR(512),
+            PRIMARY KEY songplay_id,
+            FOREIGN KEY start_time
+                REFERENCES time(start_time)
+                ON UPDATE CASCADE ON DELETE CASCADE,
+            FOREIGN KEY user_id
+                REFERENCES users(user_id)
+                ON UPDATE CASCADE ON DELETE CASCADE,
+            FOREIGN KEY level
+                REFERENCES users(level)
+                ON UPDATE CASCADE ON DELETE CASCADE,
+            FOREIGN KEY song_id
+                REFERENCES songs(song_id)
+                ON UPDATE CASCADE ON DELETE CASCADE,
+            FOREIGN KEY artist_id
+                REFERENCES artists(artist_id)
+                ON UPDATE CASCADE ON DELETE CASCADE,
+            FOREIGN KEY location
+                REFERENCES artists(location)
+                ON UPDATE CASCADE ON DELETE CASCADE
         )
-        """
+        """,
     )
+
+    try:
+        for command in commands:
+            cur.execute(command)
+        cur.close()
+    except (Exception, pg.DatabaseError) as error:
+        print(error)
+    finally:
+        if conn is not None:
+            conn.close()
+
+    if __name__ == '__main__':
+        all_tables()
