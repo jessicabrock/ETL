@@ -20,11 +20,11 @@ def all_tables():
         """
         CREATE TABLE IF NOT EXISTS time (
             start_time timestamp,
-            hour VARCHAR(2) NOT NULL,
-            day  VARCHAR(10) NOT NULL,
-            week VARCHAR(10) NOT NULL,
-            month VARCHAR(15) NOT NULL,
-            year VARCHAR(4) NOT NULL,
+            hour SMALLINT NOT NULL,
+            day  SMALLINT NOT NULL,
+            week SMALLINT NOT NULL,
+            month SMALLINT NOT NULL,
+            year SMALLINT NOT NULL,
             weekday VARCHAR(10) NOT NULL,
             PRIMARY KEY start_time
         )
