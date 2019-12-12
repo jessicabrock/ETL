@@ -1,44 +1,31 @@
-# WORK IN PROGRESS
-
-import pandas as pd
 import os
-import json
+import glob
+import pandas as pd
 
 
-root_song = 'data/song_data/A'
-root_log = 'data/log_data/2018/11'
+def get_songs():
+    all_files = []
+    root_songs = f"{os.environ['root_songdata']}"
+
+    for root, dirs, files in os.walk(root_songs):
+        files = glob.glob(os.path.join(root, '*.json'))
+        for f in files:
+            all_files.append(os.path.abspath(f))
+    return all_files
 
 
-def get_data():
-    for subdir, dirs, files in os.walk(root_song):
-        for file in files:
-            parsed = json.loads(file)
-            print(json.dumps(parsed, indent=4, sort_keys=True))
+def get_logs():
+    all_files = []
+    root_logs = f"{os.environ['root_logdata']}"
 
-# STOPPED HERE
-
-
-# postgres_extract = ('''
-#   SELECT column_1, column_2, column_3
-#   FROM postgres_table
-# ''')
-
-# postgres_insert = ('''
-#   INSERT INTO table (column_1, column_2, column_3)
-#   VALUES (?, ?, ?)
-# ''')
-
-# # exporting queries
+    for root, dirs, files in os.walk(root_logs):
+        files = glob.glob(os.path.join(root, '*.json'))
+        for f in files:
+            all_files.append(os.path.abspath(f))
+    return all_files
 
 
-# class SqlQuery:
-#     def __init__(self, extract_query, load_query):
-#         self.extract_query = extract_query
-#         self.load_query = load_query
-
-
-# # create instances for SqlQuery class
-# postgres_query = SqlQuery(postgres_extract, postgres_insert)
-
-# # store as list for iteration
-# postgres_queries = [postgres_query]
+def main():
+    # songs = pd.DataFrame()
+    # logs = pd.DataFrame()
+    pass
